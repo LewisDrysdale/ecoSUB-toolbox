@@ -1,8 +1,8 @@
 # ecoSUB-toolbox
 
-Code for working with ecoSUB micro.
+Code for working with ecoSUB micro. Very much in development so may change significantly with time.
 
-Reads data from C3 GUI log files C:\ecoSUB C3 GUI\Logs
+Reads data from C3 GUI log files (e.g. C:\ecoSUB C3 GUI\Logs)
 
 ## MATLAB
 
