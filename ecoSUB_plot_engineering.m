@@ -36,6 +36,6 @@ for ii=1:numel(ax)
     datetick(ax(ii),'x');
 end
 
-sgtitle(statev2.MissionName(1));
-
+sgtitle(char(statev2.MissionName(1)))
+         
 print(gcf,'-dpng',['figures/' char(statev2.MissionName(1)) '_' datestr(mtime(1),30) '_diagnostics']);
