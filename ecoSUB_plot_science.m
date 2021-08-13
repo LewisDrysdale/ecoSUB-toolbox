@@ -3,6 +3,7 @@ figure;
 ax1=subplot(1,3,1);
 plot(SA,D,'k.');
 axis ij;
+xlim([30 34]); % change axis limits here
 xlabel('Absolute Salinity (g kg^(-1)'); ylabel('Depth');
 grid on
 
@@ -15,6 +16,7 @@ grid on
 ax3=subplot(1,3,3);
 plot(rho,D,'m.');
 axis ij;
+xlim([1022 1024]); % change axis limits here
 xlabel('In-situ density'); ylabel('Depth');
 grid on
 print(gcf, '-dpng',['figures/' char(statev2.MissionName(1))  '-' datestr(mtime(1),30) '-2dplot']);
