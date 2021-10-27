@@ -13,6 +13,8 @@ figdir      = 'figures\'; % set outpath for figures
 
 % 2. change testdate
 testdate    ='20211020';                        % enter test date
+testdate    ='20211026';                        % enter test date
+% testdate    ='20210821';                        % enter test date
 
 % 3. check IMEI
 mimei        ='300434062118160' ;                % micro
@@ -27,8 +29,8 @@ else
 end
 
 
-state_file  = dir([infolder filesep '*1403*_ecosub_state_v2.csv']); % list relevant files
-cstate_file = dir([infolder filesep '*1403*_current_state.csv']); % list relevant files
+state_file  = dir([infolder filesep '*1151*_ecosub_state_v2.csv']); % list relevant files
+cstate_file = dir([infolder filesep '*1151*_current_state.csv']); % list relevant files
 
 % 4. choose some quality control parameters
 lat_lim     = [76 80];%
@@ -75,12 +77,17 @@ for kk = 1:numel(state_file)
     mission =char(statev2.MissionName(1));
     fpath=fullfile(figdir,[char(statev2.MissionName(1)) '-' datestr(mtime(1),30)]);
     
-    figure;
-    headingDR=Heading(dr_ind==0);
-    headingGPS=Heading(dr_ind==1);
-    mmDR=MM(dr_ind==0);
-    mmGPS=MM(dr_ind==1);
+    % seperate mission time from surface time
+    headingDR=Heading(dr_ind==1);
+    headingGPS=Heading(dr_ind==0);
+    mmDR=MM(dr_ind==1);
+    mmGPS=MM(dr_ind==0);
+    ntime=[0; cumsum(diff(Time))];
+    tDR=ntime(dr_ind==1);
+    tGPS=ntime(dr_ind==0);
     
+    figure;
+
     h1=plot(mmGPS,headingGPS,'k+');
     hold on
     h2=plot(mmDR,headingDR,'r+');
@@ -92,6 +99,20 @@ for kk = 1:numel(state_file)
     fname=fullfile(figdir,[char(statev2.MissionName(1)) '-' datestr(mtime(1),30) '-compass']);
     print(gcf,'-dpng',fname)
 
+
+    
+    figure;
+
+    scatter(mmDR,headingDR,25,tDR,'filled')
+    xlim([0 100])
+    C=colorbar
+    cmap=cmocean('Thermal');colormap(cmap);
+    xlabel('Moving Mass position')
+    ylabel('Compass heading');
+    ylabel(C,'Elapsed time');    
+    title('On Mission MRF Bench 0m depth');
+    fname=fullfile(figdir,[char(statev2.MissionName(1)) '-' datestr(mtime(1),30) '-scatter-compass']);
+    print(gcf,'-dpng',fname)
     
     % plot track
     fname=fullfile(figdir,[char(statev2.MissionName(1)) '-' datestr(mtime(1),30) '-track']);
