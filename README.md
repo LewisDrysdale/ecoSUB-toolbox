@@ -6,7 +6,7 @@ Reads data from C3 GUI log files (e.g. C:\ecoSUB C3 GUI\Logs)
 
 ## PYTHON
 
-* plot-cureent-state-v2
+* plot-current-state-v2
 * plot-current-state
 * plot-valeport-CTF
 
